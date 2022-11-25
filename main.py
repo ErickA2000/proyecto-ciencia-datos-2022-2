@@ -19,9 +19,11 @@ def abrirArchivo():
     nombre, extencion = os.path.splitext(archivo)
     if extencion == ".xlsx":
         df = pd.read_excel(archivo)
+        limpiarTabla()
         generarTabla(df)
     elif extencion == ".csv":
         df = pd.read_csv(archivo)
+        limpiarTabla()
         generarTabla(df)
     else:
         messagebox.showerror(title="Error", message="Formato de archivo no valido o archivo corrompido")
@@ -37,6 +39,8 @@ def generarTabla(df):
     for fila in df_fila:
         tabla.insert('', 'end', values=fila)
 
+def limpiarTabla():
+    tabla.delete(*tabla.get_children())
         
 def config():
     app.config(bg="white")
@@ -74,6 +78,15 @@ def configFrame():
     #Frame 1    
     tabla.grid(column=0, row=0, sticky='nsew')
 
+    ladox = Scrollbar( frame_1, orient= HORIZONTAL, command=tabla.xview )
+    ladox.grid(column=0, row=1, sticky='ew')
+
+    ladoy = Scrollbar( frame_1, orient= VERTICAL, command=tabla.yview )
+    ladoy.grid( column=1, row=0, sticky='ns' )
+
+    tabla.configure(xscrollcommand=ladox.set, yscrollcommand=ladoy.set)
+    
+    #Frame 2
     Button( frame_2 , text="Abrir archivo", command=abrirArchivo ).pack()
 
 if __name__ == "__main__":
