@@ -1,16 +1,19 @@
 from tkinter import *
+from functools import partial
 from tkinter import filedialog, messagebox, ttk
 import pandas as pd
 import cufflinks as cf
 from IPython.display import display, HTML
 import os.path
 
+import window_2 as w2
+
 app = Tk()
 
 frame_1 = Frame(app, bg='white')
 frame_2 = Frame(app, bg='gray')
 
-tabla = ttk.Treeview( frame_1, height=10 )
+tabla = ttk.Treeview( frame_1, height=10 )   
 
 def abrirArchivo():
     archivo = filedialog.askopenfilename(title="Abrir", filetypes=(("Archivo de excel", "*.xlsx"),
@@ -34,10 +37,13 @@ def generarTabla(df):
     
     for columna in tabla['column']:
         tabla.heading(columna, text=columna)
-    
+
     df_fila = df.to_numpy().tolist()
     for fila in df_fila:
         tabla.insert('', 'end', values=fila)
+
+    crearBotones(df)
+    
 
 def limpiarTabla():
     tabla.delete(*tabla.get_children())
@@ -88,7 +94,15 @@ def configFrame():
     
     #Frame 2
     Button( frame_2 , text="Abrir archivo", command=abrirArchivo ).pack()
+    
+def crearBotones(df):
+    #Frame 2 
+    Button( frame_2, text="Graficar", command=partial(abrirVentana, df) ).pack()
+    Button( frame_2, text="Limpiar", command=limpiarTabla ).pack()
 
+def abrirVentana(df):
+    w2.main(df)
+    
 if __name__ == "__main__":
     config()
     cf.set_config_file(sharing="public", theme="white", offline=True)
