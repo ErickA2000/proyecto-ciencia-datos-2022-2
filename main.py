@@ -42,8 +42,7 @@ def generarTabla(df):
     for fila in df_fila:
         tabla.insert('', 'end', values=fila)
 
-    crearBotones(df)
-    
+    crearBotones(df)    
 
 def limpiarTabla():
     tabla.delete(*tabla.get_children())
