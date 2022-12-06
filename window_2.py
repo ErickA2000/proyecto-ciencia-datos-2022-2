@@ -5,9 +5,8 @@ import pandas as pd
 def main(df):
     window = Tk()
     columns_name = df.columns.values
-    config( window, columns_name )
+    columns_name_list = list(columns_name)
     #window_2.mainloop()
-
     def config( window: Tk ):
         window.config(bg='white')
         window.geometry("600x400")
@@ -42,7 +41,15 @@ def main(df):
 
         configFrame( frame_1, frame_2 )
 
+    def showSelection( combo_1: ttk.Combobox, combo_2: ttk.Combobox ):
+        selection_1 = combo_1.get()
+        selection_2 = combo_2.get()
+        print( selection_1, selection_2 )
+
     def configFrame( frame_1: Frame, frame_2: Frame ):
-        ttk.Combobox(state="readonly", values=columns_name).place(x=50,y=50)
+        combo_1 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list).place(x=30, y=30)
+        combo_2 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list).place(x=280, y=30)
         #Frame 2
-        Button( frame_2, text="Prueba" ).pack()
+        Button( frame_2, text="Prueba", command=lambda:[showSelection(combo_1, combo_2)] ).pack()
+
+    config( window )
