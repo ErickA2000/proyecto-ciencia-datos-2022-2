@@ -2,7 +2,7 @@ from tkinter import *
 from functools import partial
 from tkinter import filedialog, messagebox, ttk
 import pandas as pd
-import cufflinks as cf
+
 #from IPython.display import display, HTML
 import os.path
 
@@ -23,10 +23,12 @@ def window1():
         nombre, extencion = os.path.splitext(archivo)
         if extencion == ".xlsx":
             df = pd.read_excel(archivo)
+            df = df.dropna()
             limpiarTabla()
             generarTabla(df)
         elif extencion == ".csv":
             df = pd.read_csv(archivo)
+            df = df.dropna()
             limpiarTabla()
             generarTabla(df)
         else:
@@ -105,6 +107,6 @@ def window1():
         w2.main(df)
 
     config()
-    cf.set_config_file(sharing="public", theme="white", offline=True)
+
     app.mainloop()
 
