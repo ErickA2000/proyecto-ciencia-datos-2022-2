@@ -20,13 +20,14 @@ def main(df: pd.DataFrame):
     combo_1 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
     combo_2 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
     combo_3 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
-    combo_3_type_graph = ttk.Combobox( frame_1, state="readonly", values=["Barras", "Dispersion", "Tarta"] )
+    combo_4_type_graph = ttk.Combobox( frame_1, state="readonly", values=["Barras", "Dispersion", "Tarta"] )
 
     def config( window: Tk ):
         window.config(bg='white')
         window.geometry("600x400")
         window.minsize( width=600, height=400 )
         window.title("Datos a graficar")
+        window.resizable(width=False, height=False)
 
         window.columnconfigure(0, weight=25)
         window.rowconfigure(0, weight=25)
@@ -57,7 +58,7 @@ def main(df: pd.DataFrame):
         selection_1 = combo_1.get()
         selection_2 = combo_2.get()
         selection_3 = combo_3.get()
-        selection_type_graph = combo_3_type_graph.get()
+        selection_type_graph = combo_4_type_graph.get()
         
         if( selection_1 == "" and selection_2 == "" ):
             messagebox.showerror(title="Error", message="Es necesario seleccionar las variables de x & y")
@@ -93,13 +94,24 @@ def main(df: pd.DataFrame):
   
     def configFrame( ):
         #Frame 1
-        combo_1.place(x=30, y=30)
-        combo_2.place(x=280, y=30)
-        combo_3.place(x=100, y=60)
-        combo_3_type_graph.place(relx=0.5, rely=0.5, width=100, anchor='c')
+        combo_1.place(relx=0.1, rely=0.1)
+        combo_2.place(relx=0.6, rely=0.1)
+        combo_3.place(relx=0.35, rely=0.25)
+        combo_4_type_graph.place(relx=0.5, rely=0.5, width=100, anchor='c')
+
+        #Labels
+        label_combo_1 =Label( frame_1, text="X", background="gray" )
+        label_combo_1.place(relx=0.25, rely=0.04)
+        label_combo_2 =Label( frame_1, text="Y", background="gray" )
+        label_combo_2.place(relx=0.75, rely=0.04)
+        label_combo_3 =Label( frame_1, text="Color", background="gray" )
+        label_combo_3.place(relx=0.45, rely=0.18)
+        label_combo_4 =Label( frame_1, text="Tipo de grafica disponible", background="gray" )
+        label_combo_4.place(relx=0.35, rely=0.4)
+
 
         #Frame 2
-        Button( frame_2, text="Prueba", command=showSelection ).pack()
+        Button( frame_2, text="Crear Grafica", command=showSelection ).pack()
 
     
 
