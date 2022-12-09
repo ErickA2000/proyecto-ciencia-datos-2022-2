@@ -1,15 +1,10 @@
 from tkinter import *
-from tkinter import filedialog, messagebox, ttk
+from tkinter import messagebox, ttk
 import pandas as pd
 import cufflinks as cf
-from plotly.offline import download_plotlyjs, init_notebook_mode, iplot
 import plotly.express as px
-import plotly.graph_objects as go
 import webbrowser
-#import dash
 
-#init_notebook_mode(connected=True)
-#pd.options.plotting.backend = "plotly"
 cf.go_offline()
 cf.set_config_file(sharing="public", theme="space")
 
@@ -23,15 +18,9 @@ def main(df: pd.DataFrame):
     frame_2 = Frame( window, bg="white" )
 
     combo_1 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
-    combo_1.place(x=30, y=30)
-
     combo_2 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
-    combo_2.place(x=280, y=30)
-
     combo_3 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
-    combo_3.place(x=90, y=60)
-    
-    #window_2.mainloop()
+    combo_3_type_graph = ttk.Combobox( frame_1, state="readonly", values=["Barras", "Dispersion", "Tarta"] )
 
     def config( window: Tk ):
         window.config(bg='white')
@@ -68,27 +57,47 @@ def main(df: pd.DataFrame):
         selection_1 = combo_1.get()
         selection_2 = combo_2.get()
         selection_3 = combo_3.get()
-
-        #data_df = df[[ selection_1, selection_2, selection_3 ]]
-        #print(data_df)
-        #data_df = data_df.pivot(columns=selection_1, values=selection_2)
+        selection_type_graph = combo_3_type_graph.get()
         
-        #fig = px.bar(x=df[selection_1], y=df[selection_2], color=df[selection_3], barmode="group", )
-        fig = px.bar(df, x=selection_1, y=selection_2, color=selection_3, barmode="group", )
-        '''fig = go.Figure(
-            go.Bar( y=df[selection_2], x=df[selection_1])
-        )'''
-        #graphHTML = fig.show()
-        #dash.dash(fig, "Prueba grafica")
-        '''html = open("graph.html", "w")
-        html.write()
-        html.close()'''
+        if( selection_1 == "" and selection_2 == "" ):
+            messagebox.showerror(title="Error", message="Es necesario seleccionar las variables de x & y")
+        else:
+            if( selection_type_graph == "Barras" ):
+                if( selection_1 and selection_2 and selection_3 ):
+                    fig = px.bar(df, x=selection_1, y=selection_2, color=selection_3, barmode="group" )
+                    generarHtmlGrafica(fig)
+
+                elif( selection_1 and selection_2 and selection_3 == "" ):
+                    fig = px.bar(df, x=selection_1, y=selection_2, barmode="group" )
+                    generarHtmlGrafica(fig)
+                    
+
+            elif( selection_type_graph == "Dispersion" ):
+                if( selection_1 and selection_2 and selection_3 ):
+                    fig = px.scatter(df, x=selection_1, y=selection_2, color=selection_3)
+                    generarHtmlGrafica(fig)
+                elif( selection_1 and selection_2 and selection_3 == "" ):
+                    fig = px.scatter(df, x=selection_1, y=selection_2)
+                    generarHtmlGrafica(fig)
+
+            elif( selection_type_graph == "Tarta" ):
+                fig = px.pie(df, values=selection_1, names=selection_2)
+                generarHtmlGrafica(fig)
+            else:
+                messagebox.showerror(title="Error", message="Falta selectionar el tipo de grafica")
+
+    def generarHtmlGrafica(fig):
         fig.write_html("graph.html")
         webbrowser.open_new_tab('graph.html')
 
   
     def configFrame( ):
-        
+        #Frame 1
+        combo_1.place(x=30, y=30)
+        combo_2.place(x=280, y=30)
+        combo_3.place(x=100, y=60)
+        combo_3_type_graph.place(relx=0.5, rely=0.5, width=100, anchor='c')
+
         #Frame 2
         Button( frame_2, text="Prueba", command=showSelection ).pack()
 

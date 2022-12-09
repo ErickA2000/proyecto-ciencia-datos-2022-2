@@ -2,8 +2,6 @@ from tkinter import *
 from functools import partial
 from tkinter import filedialog, messagebox, ttk
 import pandas as pd
-
-#from IPython.display import display, HTML
 import os.path
 
 import window_2 as w2
@@ -109,4 +107,3 @@ def window1():
     config()
 
     #app.mainloop()
-

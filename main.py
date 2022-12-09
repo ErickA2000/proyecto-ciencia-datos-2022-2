@@ -1,10 +1,4 @@
 from tkinter import *
-#from functools import partial
-#from tkinter import filedialog, messagebox, ttk
-#import pandas as pd
-#import cufflinks as cf
-#from IPython.display import display, HTML
-#import os.path
 
 import window_1 as w1
 
@@ -56,5 +50,4 @@ def openWindow():
     
 if __name__ == "__main__":
     config()
-    #cf.set_config_file(sharing="public", theme="white", offline=True)
     app.mainloop()
