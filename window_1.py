@@ -108,5 +108,5 @@ def window1():
 
     config()
 
-    app.mainloop()
+    #app.mainloop()
 

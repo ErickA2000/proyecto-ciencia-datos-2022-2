@@ -8,8 +8,8 @@ import plotly.graph_objects as go
 import webbrowser
 #import dash
 
-init_notebook_mode(connected=True)
-pd.options.plotting.backend = "plotly"
+#init_notebook_mode(connected=True)
+#pd.options.plotting.backend = "plotly"
 cf.go_offline()
 cf.set_config_file(sharing="public", theme="space")
 
@@ -73,7 +73,8 @@ def main(df: pd.DataFrame):
         #print(data_df)
         #data_df = data_df.pivot(columns=selection_1, values=selection_2)
         
-        fig = px.bar(x=df[selection_1], y=df[selection_2], color=df[selection_3])
+        #fig = px.bar(x=df[selection_1], y=df[selection_2], color=df[selection_3], barmode="group", )
+        fig = px.bar(df, x=selection_1, y=selection_2, color=selection_3, barmode="group", )
         '''fig = go.Figure(
             go.Bar( y=df[selection_2], x=df[selection_1])
         )'''
