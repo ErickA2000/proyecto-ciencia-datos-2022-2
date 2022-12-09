@@ -1,5 +1,4 @@
 from tkinter import *
-
 import window_1 as w1
 
 app = Tk()
@@ -47,6 +46,7 @@ def configFrame():
 def openWindow():
     #app.withdraw()
     w1.window1()
+    
     
 if __name__ == "__main__":
     config()

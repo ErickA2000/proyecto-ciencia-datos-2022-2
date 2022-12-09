@@ -17,6 +17,8 @@ def main(df: pd.DataFrame):
     frame_1 = Frame( window, bg='gray' )
     frame_2 = Frame( window, bg="white" )
 
+    title_graph = Entry(frame_1)
+
     combo_1 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
     combo_2 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
     combo_3 = ttk.Combobox( frame_1, state="readonly", values=columns_name_list)
@@ -65,24 +67,24 @@ def main(df: pd.DataFrame):
         else:
             if( selection_type_graph == "Barras" ):
                 if( selection_1 and selection_2 and selection_3 ):
-                    fig = px.bar(df, x=selection_1, y=selection_2, color=selection_3, barmode="group" )
+                    fig = px.bar(df, x=selection_1, y=selection_2, color=selection_3, barmode="group", title=title_graph.get() )
                     generarHtmlGrafica(fig)
 
                 elif( selection_1 and selection_2 and selection_3 == "" ):
-                    fig = px.bar(df, x=selection_1, y=selection_2, barmode="group" )
+                    fig = px.bar(df, x=selection_1, y=selection_2, barmode="group", title=title_graph.get() )
                     generarHtmlGrafica(fig)
                     
 
             elif( selection_type_graph == "Dispersion" ):
                 if( selection_1 and selection_2 and selection_3 ):
-                    fig = px.scatter(df, x=selection_1, y=selection_2, color=selection_3)
+                    fig = px.scatter(df, x=selection_1, y=selection_2, color=selection_3, title=title_graph.get())
                     generarHtmlGrafica(fig)
                 elif( selection_1 and selection_2 and selection_3 == "" ):
-                    fig = px.scatter(df, x=selection_1, y=selection_2)
+                    fig = px.scatter(df, x=selection_1, y=selection_2, title=title_graph.get())
                     generarHtmlGrafica(fig)
 
             elif( selection_type_graph == "Tarta" ):
-                fig = px.pie(df, values=selection_1, names=selection_2)
+                fig = px.pie(df, values=selection_1, names=selection_2, title=title_graph.get())
                 generarHtmlGrafica(fig)
             else:
                 messagebox.showerror(title="Error", message="Falta selectionar el tipo de grafica")
@@ -91,28 +93,30 @@ def main(df: pd.DataFrame):
         fig.write_html("graph.html")
         webbrowser.open_new_tab('graph.html')
 
-  
     def configFrame( ):
         #Frame 1
         combo_1.place(relx=0.1, rely=0.1)
         combo_2.place(relx=0.6, rely=0.1)
-        combo_3.place(relx=0.35, rely=0.25)
+        combo_3.place(relx=0.5, rely=0.25, anchor="c")
         combo_4_type_graph.place(relx=0.5, rely=0.5, width=100, anchor='c')
 
-        #Labels
+            #Labels
         label_combo_1 =Label( frame_1, text="X", background="gray" )
         label_combo_1.place(relx=0.25, rely=0.04)
         label_combo_2 =Label( frame_1, text="Y", background="gray" )
         label_combo_2.place(relx=0.75, rely=0.04)
         label_combo_3 =Label( frame_1, text="Color", background="gray" )
-        label_combo_3.place(relx=0.45, rely=0.18)
-        label_combo_4 =Label( frame_1, text="Tipo de grafica disponible", background="gray" )
+        label_combo_3.place(relx=0.5, rely=0.18, anchor="c")
+        label_combo_4 =Label( frame_1, text="Tipo de gráfica disponible", background="gray" )
         label_combo_4.place(relx=0.35, rely=0.4)
+        label_title = Label( frame_1, text="Titulo de gráfica", background="gray" )
+        label_title.place( relx=0.5, rely=0.7, anchor="c" )
+
+            #Entrada
+        title_graph.place(relx=0.5, rely=0.8, width=200 , anchor="c")
 
 
         #Frame 2
         Button( frame_2, text="Crear Grafica", command=showSelection ).pack()
-
-    
 
     config( window )
