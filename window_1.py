@@ -50,9 +50,11 @@ def window1():
             
     def config():
         app.config(bg="white")
-        app.geometry("600x400")
         app.minsize(width=600, height=400)
         app.title("Analisis datos")
+        with_screen = app.winfo_screenwidth()
+        height_screen = app.winfo_screenheight()
+        app.geometry("%dx%d" % (with_screen, height_screen))
 
         app.columnconfigure(0 , weight=25)
         app.rowconfigure(0, weight=25)
