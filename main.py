@@ -7,8 +7,8 @@ app = Tk()
 
 frame_1 = Frame(app, bg='white')
 frame_2 = Frame(app, bg= "#ad3333")
+
 #Ruta de la imagen
-carpeta_imagenes = os.path.join("img")
 carpeta_imagenes = os.path.join("img")
 img_uni = ImageTk.PhotoImage(Image.open(os.path.join(carpeta_imagenes, "escudo.jpeg")))
 etiqueta = Label(frame_1, image = img_uni)
@@ -46,16 +46,13 @@ def config():
     frame_2.rowconfigure(0, weight=1)
 
     frame_2.columnconfigure(3, weight=2)
-    frame_2.rowconfigure(0, weight=1)
-
-    
+    frame_2.rowconfigure(0, weight=1)    
 
     configFrame()
-   # visualImg()
+
 
 def configFrame():
     #Frame 2
-
     Button( frame_2 , text="Iniciar", command=openWindow,).pack()
     
 def openWindow():
