@@ -10,7 +10,7 @@ def window1():
     app = Tk()
 
     frame_1 = Frame(app, bg='white')
-    frame_2 = Frame(app, bg='gray')
+    frame_2 = Frame(app, bg='#ad3333')
 
     tabla = ttk.Treeview( frame_1, height=10 )   
 

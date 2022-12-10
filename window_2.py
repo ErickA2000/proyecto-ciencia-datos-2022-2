@@ -14,8 +14,8 @@ def main(df: pd.DataFrame):
 
     columns_name = df.columns.values
     columns_name_list = list(columns_name)
-    frame_1 = Frame( window, bg='gray' )
-    frame_2 = Frame( window, bg="white" )
+    frame_1 = Frame( window, bg='#ad3333' )
+    frame_2 = Frame( window, bg="#ad3333" )
 
     title_graph = Entry(frame_1)
 

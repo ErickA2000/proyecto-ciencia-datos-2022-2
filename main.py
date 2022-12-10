@@ -9,13 +9,10 @@ frame_1 = Frame(app, bg='white')
 frame_2 = Frame(app, bg= "#ad3333")
 #Ruta de la imagen
 carpeta_imagenes = os.path.join("img")
-
-
-def visualImg():
-    nieve = ImageTk.PhotoImage(Image.open(os.path.join(carpeta_imagenes, "escudo.jpeg")))
-    etiqueta = Label(frame_1,image=nieve)
-    print("Hola guapo")
-    etiqueta.pack()
+carpeta_imagenes = os.path.join("img")
+img_uni = ImageTk.PhotoImage(Image.open(os.path.join(carpeta_imagenes, "escudo.jpeg")))
+etiqueta = Label(frame_1, image = img_uni)
+etiqueta.pack()
 
 
 
@@ -23,9 +20,10 @@ def visualImg():
 
 def config():
     app.config(bg="#DADADA")
-    app.geometry("600x400")
-    app.minsize(width=600, height=400)
+    app.geometry("922x548")
+    app.minsize(width=922, height=548)
     app.title("Proyecto de clase ciencia de datos")
+    app.resizable(width=False, height=False)
 
     app.columnconfigure(0 , weight=25)
     app.rowconfigure(0, weight=25)
@@ -53,7 +51,7 @@ def config():
     
 
     configFrame()
-    visualImg()
+   # visualImg()
 
 def configFrame():
     #Frame 2
